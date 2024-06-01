@@ -1,20 +1,25 @@
 import axios from 'axios';
+import { TOKEN_STORAGE_NAME } from '@/const';
 
 axios.defaults.baseURL = 'http://localhost:8000/api';
 
-const config = {
-  headers: {
-    'Content-Type': 'application/json',
-    Accept: 'application/json',
-  },
-  timeout: 30000,
-};
+function getConfig() {
+  const token = sessionStorage.getItem(TOKEN_STORAGE_NAME);
+  return {
+    headers: {
+      'Content-Type': 'application/json',
+      Accept: 'application/json',
+      ...token && {'Authorization': `Bearer ${token}`},
+    },
+    timeout: 30000,
+  }
+}
 
 export class Api {
   static get(url, params) {
     return new Promise((resolve, reject) => {
       axios
-        .get(url, { ...config, params })
+        .get(url, { ...getConfig(), params })
         .then(
           (response) => resolve(response.data),
           (err) => reject(err),
@@ -26,7 +31,7 @@ export class Api {
   static post(url, data) {
     return new Promise((resolve, reject) => {
       axios
-        .post(url, data, config)
+        .post(url, data, getConfig())
         .then(
           (response) => resolve(response.data),
           (err) => reject(err),
@@ -38,7 +43,7 @@ export class Api {
   static put(url, data) {
     return new Promise((resolve, reject) => {
       axios
-        .put(url, data, config)
+        .put(url, data, getConfig())
         .then(
           (response) => resolve(response.data),
           (err) => reject(err),
@@ -50,7 +55,7 @@ export class Api {
   static delete(url) {
     return new Promise((resolve, reject) => {
       axios
-        .delete(url, config)
+        .delete(url, getConfig())
         .then(
           (response) => resolve(response.data),
           (err) => reject(err),
@@ -62,7 +67,7 @@ export class Api {
   static patch(url, data) {
     return new Promise((resolve, reject) => {
       axios
-        .patch(url, data, config)
+        .patch(url, data, getConfig())
         .then(
           (response) => resolve(response.data),
           (err) => reject(err),

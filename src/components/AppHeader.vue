@@ -39,7 +39,7 @@ import { computed, ref } from "vue";
 const userStore = useUserStore();
 const drawer = ref(true);
 
-const fullName = computed(() => `${userStore.user?.firstName} ${userStore.user?.lastName}` );
+const fullName = computed(() => userStore.hasUser && `${userStore.user?.firstName} ${userStore.user?.lastName}` );
 
 const links = computed(() => {
   const arr = [

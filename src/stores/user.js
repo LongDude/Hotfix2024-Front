@@ -1,7 +1,7 @@
 import { computed, ref } from 'vue';
 import { defineStore } from 'pinia';
 import { UserApi } from '@/api';
-import { USER_STORAGE_NAME } from '@/const';
+import { USER_STORAGE_NAME, TOKEN_STORAGE_NAME } from '@/const';
 
 const initialUser = () => ({});
 
@@ -21,7 +21,9 @@ export const useUserStore = defineStore('user', () => {
     let foundedUser = null;
 
     if (users_email && users_password) {
-      foundedUser = await UserApi.login(users_email, users_password);
+      const { token } = await UserApi.login(users_email, users_password);
+      await sessionStorage.setItem(TOKEN_STORAGE_NAME, token);
+      foundedUser = await UserApi.getUser();
     } else {
       const sessionUserStr = sessionStorage.getItem(USER_STORAGE_NAME);
       if (sessionUserStr) {

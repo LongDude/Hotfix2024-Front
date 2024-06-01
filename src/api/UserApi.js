@@ -6,9 +6,24 @@ const useMocks = true;
 
 export class UserApi extends Api {
   static async login(login, password) {
+    const useMocks = false;
     return (await (useMocks
       ? new Promise((res) => res(getUser()))
-      : this.post('login/', { login, password }).then(res => {
+      : this.post('login/', { login, password })) );
+  }
+
+  static async getUser() {
+    // const useMocks = false;
+    return (await (useMocks
+      ? new Promise((res) => res(getUser()))
+      : (this.get('user/').then(res => {
+        console.log('l', {
+          firstName: res.firstname,
+          lastName: res.surname,
+          login: res.email,
+          gender: res.gender,
+          phone: res.phonenumber
+        }, res, getUser());
         return {
           firstName: res.firstname,
           lastName: res.surname,
@@ -17,25 +32,28 @@ export class UserApi extends Api {
           phone: res.phonenumber,
           token: res.token,
         }
-      })) );
-  }
-
-  static async getUser() {
-    return (await (useMocks
-      ? new Promise((res) => res(getUser()))
-      : this.get('user/')));
+      }))) );
   }
 
   static async logout() {
+    // const useMocks = false;
     return (await (useMocks
       ? new Promise((res) => res(true))
-      : this.get('logout/')));
+      : this.post('logout/')));
   }
 
   static async register(userObj) {
+    // const useMocks = false;
     return (await (useMocks
       ? new Promise((res) => res(true))
-      : this.post('register/', userObj)));
+      : this.post('register/', {
+        email:userObj.login,
+        firstname:userObj.firstName,
+        surname:userObj.lastName,
+        phonenumber:userObj.phone,
+        gender:userObj.gender,
+        password:userObj.password
+      })));
   }
 
   static async changeProfile(userObj) {
