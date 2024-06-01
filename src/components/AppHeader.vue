@@ -17,17 +17,12 @@
         <v-app-bar-nav-icon @click="drawer = !drawer"></v-app-bar-nav-icon>
       </template>
 
-      <!-- <v-app-bar-title>
-        <router-link to="/">Главная</router-link>
-      </v-app-bar-title> -->
-
       <v-btn
         v-if="userStore.hasUser"
         text="Выйти"
         class="ml-1"
         @click="userStore.logout"
       ></v-btn>
-      <!-- <auth-dialog v-else class="ml-1" /> -->
     </v-app-bar>
   </header>
 </template>
