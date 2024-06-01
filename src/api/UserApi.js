@@ -13,7 +13,7 @@ export class UserApi extends Api {
   }
 
   static async getUser() {
-    // const useMocks = false;
+    const useMocks = false;
     return (await (useMocks
       ? new Promise((res) => res(getUser()))
       : (this.get('user/').then(res => {
@@ -36,14 +36,14 @@ export class UserApi extends Api {
   }
 
   static async logout() {
-    // const useMocks = false;
+    const useMocks = false;
     return (await (useMocks
       ? new Promise((res) => res(true))
       : this.post('logout/')));
   }
 
   static async register(userObj) {
-    // const useMocks = false;
+    const useMocks = false;
     return (await (useMocks
       ? new Promise((res) => res(true))
       : this.post('register/', {
