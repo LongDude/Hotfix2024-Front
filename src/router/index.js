@@ -1,6 +1,7 @@
 import AuthPage from "@/pages/AuthPage.vue";
 import HomePage from "@/pages/HomePage.vue";
-import RegisterPage from "@/pages/registerPage.vue";
+import RegisterPage from "@/pages/RegisterPage.vue";
+import ProfilePage from "@/pages/ProfilePage.vue";
 import { createRouter, createWebHistory } from "vue-router";
 
 const router = createRouter({
@@ -8,6 +9,7 @@ const router = createRouter({
   routes: [
     { path: "/auth", component: AuthPage, name: "auth" },
     { path: "/register", component: RegisterPage, name: "register" },
+    { path: "/profile", component: ProfilePage, name: "profile" },
     { path: "", component: HomePage, name: "home" },
   ],
 });

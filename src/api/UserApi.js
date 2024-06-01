@@ -1,4 +1,5 @@
 import { Api } from './Api';
+import { getRequests } from './mock/getRequests';
 import { getUser } from './mock/getUser';
 
 const useMocks = true;
@@ -13,7 +14,8 @@ export class UserApi extends Api {
           lastName: res.surname,
           login: res.email,
           gender: res.gender,
-          phone: res.phonenumber
+          phone: res.phonenumber,
+          token: res.token,
         }
       })) );
   }
@@ -34,5 +36,17 @@ export class UserApi extends Api {
     return (await (useMocks
       ? new Promise((res) => res(true))
       : this.post('register/', userObj)));
+  }
+
+  static async changeProfile(userObj) {
+    return (await (useMocks
+      ? new Promise((res) => res(getUser()))
+      : this.put('change-profile/', userObj)));
+  }
+
+  static async getRequests() {
+    return (await (useMocks
+      ? new Promise((res) => res(getRequests()))
+      : this.get('requests/')));
   }
 }

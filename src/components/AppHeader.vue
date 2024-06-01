@@ -2,7 +2,7 @@
   <header>
     <v-navigation-drawer v-model="drawer">
       <template v-if="userStore.hasUser">
-        <v-list-item :title="fullName"></v-list-item>
+        <v-list-item :title="fullName" link to="/profile"></v-list-item>
         <v-divider></v-divider>
       </template>
       <v-list>
@@ -39,7 +39,7 @@ import { computed, ref } from "vue";
 const userStore = useUserStore();
 const drawer = ref(true);
 
-const fullName = computed(() => `${userStore.user?.first_name} ${userStore.user?.last_name}` );
+const fullName = computed(() => `${userStore.user?.firstName} ${userStore.user?.lastName}` );
 
 const links = computed(() => {
   const arr = [

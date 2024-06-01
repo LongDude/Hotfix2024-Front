@@ -3,5 +3,6 @@ export const getUser = () => ({
     lastName: 'last_name',
     login: 'login',
     gender: true,
-    phone: '89046867942'
+    phone: '89046867942',
+    token: 'faea',
 })
