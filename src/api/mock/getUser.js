@@ -1,4 +1,7 @@
 export const getUser = () => ({
-    first_name: 'first_name',
-    last_name: 'last_name',
+    firstName: 'first_name',
+    lastName: 'last_name',
+    login: 'login',
+    gender: true,
+    phone: '89046867942'
 })

@@ -7,7 +7,15 @@ export class UserApi extends Api {
   static async login(login, password) {
     return (await (useMocks
       ? new Promise((res) => res(getUser()))
-      : this.get('login/', { login, password })));
+      : this.post('login/', { login, password }).then(res => {
+        return {
+          firstName: res.firstname,
+          lastName: res.surname,
+          login: res.email,
+          gender: res.gender,
+          phone: res.phonenumber
+        }
+      })) );
   }
 
   static async getUser() {

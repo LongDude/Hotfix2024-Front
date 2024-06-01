@@ -7,7 +7,7 @@ const initialUser = () => ({});
 
 export const useUserStore = defineStore('user', () => {
   const user = ref(null);
-  const hasUser = computed(() => !!user.value?.first_name);
+  const hasUser = computed(() => !!user.value?.firstName);
 
   function updateUser(newUser) {
     user.value = newUser;
@@ -26,9 +26,10 @@ export const useUserStore = defineStore('user', () => {
       const sessionUserStr = sessionStorage.getItem(USER_STORAGE_NAME);
       if (sessionUserStr) {
         const sessionUser = JSON.parse(sessionUserStr);
-        const token = sessionUser.token;
+        foundedUser = sessionUser;
+        // const token = sessionUser.token;
 
-        if (token) foundedUser = await UserApi.getUser();
+        // if (token) foundedUser = await UserApi.getUser();
       } else {
         user.value = initialUser();
       }
@@ -46,5 +47,5 @@ export const useUserStore = defineStore('user', () => {
     updateUser(initialUser());
   }
 
-  return { user, logout, hasUser, authUser };
+  return { user, logout, hasUser, authUser, updateUser };
 });

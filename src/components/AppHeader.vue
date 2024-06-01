@@ -23,9 +23,9 @@
 
       <v-btn
         v-if="userStore.hasUser"
-        :text="logoutText"
+        text="Выйти"
         class="ml-1"
-        @click="logout"
+        @click="userStore.logout"
       ></v-btn>
       <!-- <auth-dialog v-else class="ml-1" /> -->
     </v-app-bar>
@@ -63,6 +63,7 @@ const links = computed(() => {
 
   return arr;
 });
+
 </script>
 
 <style lang="scss" scoped></style>
