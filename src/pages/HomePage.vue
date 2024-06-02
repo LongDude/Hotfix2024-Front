@@ -24,11 +24,11 @@
       </div>
     </header>
 
-    <main class="home-page__main mb-4">
-      <chart-vue :y="[1, 40, 9, 60, 4, 20, 10]" />
+    <main v-if="flights" class="home-page__main mb-4">
+      <chart-vue :y="flights.mean" />
     </main>
 
-    <flights-table />
+    <flights-table v-if="flights" :items="[flights]" />
   </section>
 </template>
 
@@ -41,6 +41,7 @@ import FlightsTable from "./home/FlightsTable.vue";
 
 const router = useRouter();
 const cities = ref([]);
+const flights = ref(null);
 const props = defineProps({
   from: null,
   to: null,
@@ -97,7 +98,7 @@ const apply = async () => {
     path: router.currentRoute.value.fullPath,
     title: `${props.date} / ${props.from} / ${props.to} / ${props.flclass}`,
   };
-  await FlightApi.getFlights(obj);
+  flights.value = await FlightApi.getFlights(obj);
 };
 
 onMounted(async () => {

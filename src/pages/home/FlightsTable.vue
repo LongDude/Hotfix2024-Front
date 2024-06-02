@@ -8,10 +8,11 @@
 
 <script setup>
 import { defineProps } from "vue";
-
 const headers = [
-  { title: "Название", key: "title" },
-  { title: "Путь", key: "path" },
+  { title: "Компания", key: "airline" },
+  { title: "С пересадками", key: "stop_type" },
+  { title: "Время полета", key: "time_taken" },
+  { title: "Рек. цена", key: "price" },
 ];
 
 const props = defineProps({
