@@ -1,13 +1,14 @@
 <template>
   <section class="home-page main-page">
     <header class="home-page__header">
-      <v-date-input v-model="date" label="Дата вылета"></v-date-input>
-      <v-select v-model="from" label="Откуда" :items="fromCities"></v-select>
-      <v-select v-model="to" label="Куда" :items="toCities"></v-select>
+      <v-date-input :value="props.date" label="Дата вылета" @update:model-value="dateChange"></v-date-input>
+      <v-select :value="props.from" label="Откуда" :items="fromCities" @update:model-value="fromChange"></v-select>
+      <v-select :value="props.to" label="Куда" :items="toCities" @update:model-value="toChange"></v-select>
       <v-select
-        v-model="flClass"
+        :value="props.flclass"
         label="Класс"
         :items="['Эконом', 'Бизнес']"
+        @update:model-value="classChange"
       ></v-select>
       <div>
         <v-btn
@@ -30,31 +31,67 @@
 
 <script setup>
 import { onMounted, computed } from "vue";
+import { useRouter } from "vue-router";
 import { FlightApi } from "@/api/FlightApi";
 import ChartVue from "@/pages/home/ChartVue.vue";
 
+const router = useRouter();
 const cities = ref([]);
-const from = ref("");
-const to = ref("");
-const date = ref(null);
-const flClass = ref("");
+const props = defineProps({
+  from: null,
+  to: null,
+  date: null,
+  flclass: null,
+});
+
+const updateRouter = (from, to, date, flclass) => {
+  const query = {
+      ...from && {from: from},
+      ...to && {to: to},
+      ...date && {date: date},
+      ...flclass && {flclass: flclass},
+    };
+
+  router.push({
+    path: '/',
+    query
+  })
+}
+
+const dateChange = (newValue) => {
+  updateRouter(props.from, props.to, newValue, props.flclass);
+}
+
+const fromChange = (newValue) => {
+  updateRouter(newValue, props.to, props.date, props.flclass);
+}
+
+const toChange = (newValue) => {
+  updateRouter(props.from, newValue, props.date, props.flclass);
+}
+
+const classChange = (newValue) => {
+  updateRouter(props.from, props.to, props.date, newValue);
+}
 
 const toCities = computed(() =>
-  cities.value.filter((city) => city !== from.value)
+  cities.value.filter((city) => city !== props.from)
 );
 const fromCities = computed(() =>
-  cities.value.filter((city) => city !== to.value)
+  cities.value.filter((city) => city !== props.to)
 );
 const canApply = computed(
-  () => from.value && to.value && date.value && flClass.value
+  () => props.from && props.to && props.date && props.flclass
 );
 
 const apply = async () => {
   const obj = {
-    from: from.value,
-    to: to.value,
-    date: +date.value,
-    class: flClass.value,
+    from: props.from,
+    to: props.to,
+    date: +new Date(props.date),
+    class: props.flclass,
+    path: router.currentRoute.value.fullPath,
+    title: `${props.date} / ${props.from} / ${props.to} / ${props.flclass}`,
   };
   await FlightApi.getFlights(obj);
 };

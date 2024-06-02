@@ -17,10 +17,13 @@
         @click="drawer = true"
         class="d-flex d-sm-none"
       ></v-app-bar-nav-icon>
-      <v-toolbar-title class="d-none d-sm-flex">
+      <router-link to="/">
+        <v-toolbar-title class="d-none d-sm-flex">
         <v-icon>mdi-airplane</v-icon>
         Avia
       </v-toolbar-title>
+      </router-link>
+
 
       <v-spacer></v-spacer>
 

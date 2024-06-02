@@ -10,7 +10,17 @@ const router = createRouter({
     { path: "/auth", component: AuthPage, name: "auth" },
     { path: "/register", component: RegisterPage, name: "register" },
     { path: "/profile", component: ProfilePage, name: "profile" },
-    { path: "", component: HomePage, name: "home" },
+    {
+      path: "",
+      component: HomePage,
+      name: "home",
+      props: (route) => ({
+        from: route.query.from,
+        to: route.query.to,
+        date: route.query.date,
+        flclass: route.query.flclass,
+      }),
+    },
   ],
 });
 

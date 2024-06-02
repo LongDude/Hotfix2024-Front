@@ -6,6 +6,7 @@
 
 // Plugins
 import { registerPlugins } from "@/plugins";
+import './styles/main.scss'
 import router from "./router";
 
 // Components

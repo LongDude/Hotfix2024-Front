@@ -13,10 +13,15 @@ const props = defineProps({
 
 const id = ref(Math.random().toString());
 
+function *generateX() {
+  for (let index = 0; index < 24; index++) {
+    yield `${index.toString().padStart(2, '0')}:00`
+  }
+}
+
 onMounted(() => {
-  const lineDiv = document.getElementById(id.value);
   const traceA = {
-    x: [1, 2, 3, 4, 16, 17, 26],
+    x: [...generateX()],
     y: props.y,
     type: "scatter",
   };
@@ -24,8 +29,8 @@ onMounted(() => {
 
   Plotly.newPlot(
     id.value,
-    /* JSON object */ {
-      data: data,
+    {
+      data,
       layout: { height: 400 },
     }
   );
