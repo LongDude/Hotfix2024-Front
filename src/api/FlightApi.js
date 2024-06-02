@@ -2,7 +2,7 @@ import { Api } from "./Api";
 import { getCities } from "./mock/getCities";
 import { getFlights } from "./mock/getFlights";
 
-const useMocks = true;
+const useMocks = false;
 
 export class FlightApi extends Api {
   static async getCities() {

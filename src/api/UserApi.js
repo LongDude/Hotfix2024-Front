@@ -2,7 +2,7 @@ import { Api } from "./Api";
 import { getRequests } from "./mock/getRequests";
 import { getUser } from "./mock/getUser";
 
-const useMocks = true;
+const useMocks = false;
 
 export class UserApi extends Api {
   static async login(login, password) {
