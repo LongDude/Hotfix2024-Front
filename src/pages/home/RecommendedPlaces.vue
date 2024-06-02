@@ -1,5 +1,6 @@
 <template>
   <section class="recommended-places">
+		<h2>Рекомендуемые места для посещения</h2>
 		<div class="first-line">
 			<v-card class="mx-auto my-8" elevation="16" max-width="344">
       <v-card-item>
