@@ -77,3 +77,6 @@ This project is built with [Vuetify](https://vuetifyjs.com/en/), a UI Library wi
 [MIT](http://opensource.org/licenses/MIT)
 
 Copyright (c) 2016-present Vuetify, LLC
+
+# Ссылка на бек
+[https://github.com/LongDude](https://github.com/LongDude/Hotfix2024-Back)
