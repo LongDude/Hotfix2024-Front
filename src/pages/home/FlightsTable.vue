@@ -2,7 +2,7 @@
   <v-data-table-virtual
     :headers="headers"
     :items="props.items"
-    height="400"
+    height="100"
   ></v-data-table-virtual>
 </template>
 

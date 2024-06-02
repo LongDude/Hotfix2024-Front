@@ -1,11 +1,29 @@
 <template>
   <section class="home-page main-page">
     <header class="home-page__header">
-      <v-date-input :value="props.date" label="Дата вылета" @update:model-value="dateChange"></v-date-input>
-      <v-select :value="props.from" label="Откуда" :items="fromCities" @update:model-value="fromChange"></v-select>
-      <v-select :value="props.to" label="Куда" :items="toCities" @update:model-value="toChange"></v-select>
+      <v-date-input
+        :value="props.date"
+        label="Дата вылета"
+        :disabled="loading"
+        @update:model-value="dateChange"
+      ></v-date-input>
+      <v-select
+        :value="props.from"
+        label="Откуда"
+        :disabled="loading"
+        :items="fromCities"
+        @update:model-value="fromChange"
+      ></v-select>
+      <v-select
+        :value="props.to"
+        label="Куда"
+        :disabled="loading"
+        :items="toCities"
+        @update:model-value="toChange"
+      ></v-select>
       <v-select
         :value="props.flclass"
+        :disabled="loading"
         label="Класс"
         :items="['Эконом', 'Бизнес']"
         @update:model-value="classChange"
@@ -16,7 +34,7 @@
           class="btn__inner"
           variant="tonal"
           block
-          :disabled="!canApply"
+          :disabled="!canApply || loading"
           @click="apply"
         >
           Найти
@@ -24,11 +42,22 @@
       </div>
     </header>
 
-    <main v-if="flights" class="home-page__main mb-4">
-      <chart-vue :y="flights.mean" />
-    </main>
+    <div v-if="loading" class="loader">
+      <v-progress-circular
+        :size="70"
+        :width="7"
+        color="primary"
+        indeterminate
+      ></v-progress-circular>
+    </div>
 
-    <flights-table v-if="flights" :items="[flights]" />
+    <template v-else>
+      <main v-if="flights" class="home-page__main mb-4">
+        <chart-vue :y="flights.mean" />
+      </main>
+
+      <flights-table v-if="flights" :items="[flights]" />
+    </template>
   </section>
 </template>
 
@@ -40,6 +69,7 @@ import ChartVue from "@/pages/home/ChartVue.vue";
 import FlightsTable from "./home/FlightsTable.vue";
 
 const router = useRouter();
+const loading = ref(false);
 const cities = ref([]);
 const flights = ref(null);
 const props = defineProps({
@@ -52,33 +82,33 @@ const props = defineProps({
 const updateRouter = (from, to, date, flclass) => {
   flights.value = null;
   const query = {
-      ...from && {from: from},
-      ...to && {to: to},
-      ...date && {date: date},
-      ...flclass && {flclass: flclass},
-    };
+    ...(from && { from: from }),
+    ...(to && { to: to }),
+    ...(date && { date: date }),
+    ...(flclass && { flclass: flclass }),
+  };
 
   router.push({
-    path: '/',
-    query
-  })
-}
+    path: "/",
+    query,
+  });
+};
 
 const dateChange = (newValue) => {
   updateRouter(props.from, props.to, newValue, props.flclass);
-}
+};
 
 const fromChange = (newValue) => {
   updateRouter(newValue, props.to, props.date, props.flclass);
-}
+};
 
 const toChange = (newValue) => {
   updateRouter(props.from, newValue, props.date, props.flclass);
-}
+};
 
 const classChange = (newValue) => {
   updateRouter(props.from, props.to, props.date, newValue);
-}
+};
 
 const toCities = computed(() =>
   cities.value.filter((city) => city !== props.from)
@@ -91,6 +121,7 @@ const canApply = computed(
 );
 
 const apply = async () => {
+  loading.value = true;
   flights.value = null;
   const obj = {
     from: props.from,
@@ -101,6 +132,7 @@ const apply = async () => {
     title: `${props.date} / ${props.from} / ${props.to} / ${props.flclass}`,
   };
   flights.value = await FlightApi.getFlights(obj);
+  loading.value = false;
 };
 
 onMounted(async () => {
@@ -109,6 +141,13 @@ onMounted(async () => {
 </script>
 
 <style lang="scss">
+.loader {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 300px;
+}
+
 .home-page {
   &__header {
     display: flex;
@@ -130,12 +169,12 @@ onMounted(async () => {
     }
 
     &__btn {
-    align-self: start;
+      align-self: start;
 
-    & > .btn__inner  {
-      height: 56px;
+      & > .btn__inner {
+        height: 56px;
+      }
     }
-  }
   }
 }
 </style>

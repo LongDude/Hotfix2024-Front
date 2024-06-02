@@ -20,7 +20,7 @@
       <router-link to="/" class="ml-1">
         <v-toolbar-title class="d-none d-sm-flex">
         <v-icon>mdi-airplane</v-icon>
-        Avia
+        AviaD
       </v-toolbar-title>
       </router-link>
 
