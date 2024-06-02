@@ -158,7 +158,8 @@ const canChanged = computed(
       user.value.firstName !== firstName.value ||
       user.value.lastName !== lastName.value ||
       !!user.value.gender !== gender.value ||
-      user.value.phone !== phone.value)
+      user.value.phone !== phone.value ||
+      (newPassword.value.length >= 2 && newPassword.value !== password.value))
 );
 
 const apply = async () => {

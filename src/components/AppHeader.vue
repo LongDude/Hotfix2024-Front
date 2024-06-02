@@ -17,7 +17,7 @@
         @click="drawer = true"
         class="d-flex d-sm-none"
       ></v-app-bar-nav-icon>
-      <router-link to="/">
+      <router-link to="/" class="ml-1">
         <v-toolbar-title class="d-none d-sm-flex">
         <v-icon>mdi-airplane</v-icon>
         Avia
@@ -38,18 +38,18 @@
         @click="userStore.logout"
       >
         Выйти
-        <v-icon>mdi-exit-to-app</v-icon>
+        <v-icon class="ml-1">mdi-exit-to-app</v-icon>
       </v-btn>
 
       <div v-else>
-        <v-btn to="/auth" text="Войти" class="ml-1">
+        <v-btn to="/auth" text="Войти" class="ml-1 mr-1">
           Войти
           <v-icon class="ml-1">mdi-login</v-icon>
         </v-btn>
 
         <v-btn to="/register" text="Зарегистрироваться" class="ml-1">
           Зарегистрироваться
-          <v-icon class="ml-1">mdi-account-plus</v-icon>
+          <v-icon class="ml-1">o</v-icon>
         </v-btn>
       </div>
     </v-app-bar>
