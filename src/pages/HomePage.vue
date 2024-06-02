@@ -10,9 +10,10 @@
         :items="['Эконом', 'Бизнес']"
         @update:model-value="classChange"
       ></v-select>
-      <div>
+      <div class="home-page__btn mb-lg-2">
         <v-btn
           color="blue"
+          class="btn__inner"
           variant="tonal"
           block
           :disabled="!canApply"
@@ -23,9 +24,11 @@
       </div>
     </header>
 
-    <main class="home-page__main">
+    <main class="home-page__main mb-4">
       <chart-vue :y="[1, 40, 9, 60, 4, 20, 10]" />
     </main>
+
+    <flights-table />
   </section>
 </template>
 
@@ -34,6 +37,7 @@ import { onMounted, computed } from "vue";
 import { useRouter } from "vue-router";
 import { FlightApi } from "@/api/FlightApi";
 import ChartVue from "@/pages/home/ChartVue.vue";
+import FlightsTable from "./home/FlightsTable.vue";
 
 const router = useRouter();
 const cities = ref([]);
@@ -121,6 +125,14 @@ onMounted(async () => {
     &__header {
       flex-direction: row;
     }
+
+    &__btn {
+    align-self: start;
+
+    & > .btn__inner  {
+      height: 56px;
+    }
+  }
   }
 }
 </style>

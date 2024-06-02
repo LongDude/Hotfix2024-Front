@@ -1,7 +1,5 @@
 <template>
   <section class="profile-page main-page">
-    <h1>Profile</h1>
-
     <form action="" method="post">
       <v-card
         class="mx-auto pa-12 pb-8"

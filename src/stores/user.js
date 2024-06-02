@@ -46,6 +46,7 @@ export const useUserStore = defineStore("user", () => {
   async function logout() {
     await UserApi.logout();
     sessionStorage.removeItem(USER_STORAGE_NAME);
+    sessionStorage.removeItem(TOKEN_STORAGE_NAME);
     updateUser(initialUser());
   }
 

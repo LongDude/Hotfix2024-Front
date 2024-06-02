@@ -31,6 +31,10 @@
         <v-icon>mdi-theme-light-dark</v-icon>
       </v-btn>
 
+      <router-link v-if="userStore.hasUser" to="/profile" class="ml-1">
+        <span class="mdi mdi-account ml-1 person-icon"></span>
+      </router-link>
+
       <v-btn
         v-if="userStore.hasUser"
         text="Выйти"
@@ -93,10 +97,6 @@ const links = computed(() => {
   }
 
   return arr;
-});
-
-const isMobile = computed(() => {
-  return window.innerWidth < 600;
 });
 
 function toggleTheme() {
