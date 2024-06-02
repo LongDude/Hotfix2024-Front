@@ -1,5 +1,3 @@
 export const getCities = () => {
-	return [
-		'Bangalore', 'Chennai', 'Delhi', 'Hyderabad', 'Kolkata', 'Mumbai'
-	]
-}
+  return ["Bangalore", "Chennai", "Delhi", "Hyderabad", "Kolkata", "Mumbai"];
+};

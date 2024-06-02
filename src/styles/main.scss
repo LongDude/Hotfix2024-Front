@@ -1,17 +1,19 @@
-*, *::after, *::before {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+*,
+*::after,
+*::before {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
 img {
-    max-width: 100%;
+  max-width: 100%;
 }
 
 .main-page {
-    padding: 10px;
+  padding: 10px;
 }
 
 .pointer {
-    cursor: pointer;
+  cursor: pointer;
 }

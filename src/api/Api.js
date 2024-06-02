@@ -1,18 +1,18 @@
-import axios from 'axios';
-import { TOKEN_STORAGE_NAME } from '@/const';
+import axios from "axios";
+import { TOKEN_STORAGE_NAME } from "@/const";
 
-axios.defaults.baseURL = 'http://localhost:8000/api';
+axios.defaults.baseURL = "http://localhost:8000/api";
 
 function getConfig() {
   const token = sessionStorage.getItem(TOKEN_STORAGE_NAME);
   return {
     headers: {
-      'Content-Type': 'application/json',
-      Accept: 'application/json',
-      ...token && {'Authorization': `Bearer ${token}`},
+      "Content-Type": "application/json",
+      Accept: "application/json",
+      ...(token && { Authorization: `Bearer ${token}` }),
     },
     timeout: 30000,
-  }
+  };
 }
 
 export class Api {
@@ -22,7 +22,7 @@ export class Api {
         .get(url, { ...getConfig(), params })
         .then(
           (response) => resolve(response.data),
-          (err) => reject(err),
+          (err) => reject(err)
         )
         .catch((error) => reject(error));
     });
@@ -34,7 +34,7 @@ export class Api {
         .post(url, data, getConfig())
         .then(
           (response) => resolve(response.data),
-          (err) => reject(err),
+          (err) => reject(err)
         )
         .catch((error) => reject(error));
     });
@@ -46,7 +46,7 @@ export class Api {
         .put(url, data, getConfig())
         .then(
           (response) => resolve(response.data),
-          (err) => reject(err),
+          (err) => reject(err)
         )
         .catch((error) => reject(error));
     });
@@ -58,7 +58,7 @@ export class Api {
         .delete(url, getConfig())
         .then(
           (response) => resolve(response.data),
-          (err) => reject(err),
+          (err) => reject(err)
         )
         .catch((error) => reject(error));
     });
@@ -70,7 +70,7 @@ export class Api {
         .patch(url, data, getConfig())
         .then(
           (response) => resolve(response.data),
-          (err) => reject(err),
+          (err) => reject(err)
         )
         .catch((error) => reject(error));
     });

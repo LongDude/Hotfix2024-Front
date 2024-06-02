@@ -1,5 +1,9 @@
 <template>
-	  <v-data-table :items="props.requests" :headers="headers" :loading="!props.requests">
+  <v-data-table
+    :items="props.requests"
+    :headers="headers"
+    :loading="!props.requests"
+  >
     <template v-slot:item.path="{ item }">
       <router-link :to="item.path">{{ item.path }}</router-link>
     </template>
@@ -7,17 +11,16 @@
 </template>
 
 <script setup>
-import { defineProps } from 'vue';
+import { defineProps } from "vue";
 
 const headers = [
-	{ title: 'Название', key: 'title' },
-	{ title: 'Путь', key: 'path' },
-]
+  { title: "Название", key: "title" },
+  { title: "Путь", key: "path" },
+];
 
 const props = defineProps({
-  requests: []
-})
+  requests: [],
+});
 </script>
 
-<style lang="scss">
-</style>
+<style lang="scss"></style>

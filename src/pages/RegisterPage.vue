@@ -152,7 +152,7 @@ const register = async () => {
   });
 
   if (response) {
-    await userStore.authUser(login.value, password.value)
+    await userStore.authUser(login.value, password.value);
   }
 
   loading.value = false;

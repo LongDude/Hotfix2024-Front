@@ -11,7 +11,7 @@ const props = defineProps({
   y: [],
 });
 
-const id = ref((Math.random().toString()));
+const id = ref(Math.random().toString());
 
 onMounted(() => {
   const lineDiv = document.getElementById(id.value);
@@ -22,9 +22,12 @@ onMounted(() => {
   };
   const data = [traceA];
 
-  Plotly.newPlot(id.value, /* JSON object */ {
-            "data": data,
-            "layout": { "height": 400}
-        })
+  Plotly.newPlot(
+    id.value,
+    /* JSON object */ {
+      data: data,
+      layout: { height: 400 },
+    }
+  );
 });
 </script>

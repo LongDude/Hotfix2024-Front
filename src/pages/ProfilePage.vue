@@ -1,15 +1,15 @@
 <template>
-	<section class="profile-page main-page">
-		<h1>Profile</h1>
+  <section class="profile-page main-page">
+    <h1>Profile</h1>
 
-		<form action="" method="post">
+    <form action="" method="post">
       <v-card
         class="mx-auto pa-12 pb-8"
         elevation="8"
         max-width="448"
         rounded="lg"
       >
-			<label
+        <label
           for="password"
           class="text-subtitle-1 text-medium-emphasis d-flex align-center justify-space-between pointer"
         >
@@ -28,7 +28,6 @@
           :disabled="loading"
           @click:append-inner="visible = !visible"
         ></v-text-field>
-
 
         <label
           for="newPassword"
@@ -119,9 +118,9 @@
       </v-card>
     </form>
 
-		<h2>История пользователя</h2>
-		<request-table :requests="requests" />
-	</section>
+    <h2>История пользователя</h2>
+    <request-table :requests="requests" />
+  </section>
 </template>
 
 <script setup>
@@ -130,7 +129,6 @@ import { useUserStore } from "@/stores/user";
 import { useRouter } from "vue-router";
 import { UserApi } from "@/api/UserApi";
 import RequestTable from "./profile/RequestTable.vue";
-
 
 const userStore = useUserStore();
 const router = useRouter();
@@ -149,20 +147,22 @@ const lastName = ref(user.value.lastName);
 const gender = ref(!!user.value.gender);
 const phone = ref(user.value.phone);
 
-const canChanged = computed(() => !!password.value && (
-	user.value.login !== login.value
-	|| user.value.firstName !== firstName.value
-	|| user.value.lastName !== lastName.value
-	|| !!user.value.gender !== gender.value
-	|| user.value.phone !== phone.value
-	));
+const canChanged = computed(
+  () =>
+    !!password.value &&
+    (user.value.login !== login.value ||
+      user.value.firstName !== firstName.value ||
+      user.value.lastName !== lastName.value ||
+      !!user.value.gender !== gender.value ||
+      user.value.phone !== phone.value)
+);
 
 const apply = async () => {
   loading.value = true;
   const changedUser = await UserApi.changeProfile({
     login: login.value,
     password: password.value,
-		newPassword: newPassword.value,
+    newPassword: newPassword.value,
     firstName: firstName.value,
     lastName: lastName.value,
     gender: gender.value,
@@ -183,6 +183,4 @@ onBeforeMount(async () => {
 });
 </script>
 
-<style lang="scss">
-
-</style>
+<style lang="scss"></style>

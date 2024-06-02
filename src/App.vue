@@ -8,16 +8,16 @@
 </template>
 
 <script setup>
-import AppHeader from './components/AppHeader.vue';
-import { useUserStore } from '@/stores/user';
-import { onBeforeMount } from 'vue'; 
+import AppHeader from "./components/AppHeader.vue";
+import { useUserStore } from "@/stores/user";
+import { onBeforeMount } from "vue";
 
 const userStore = useUserStore();
 
 onBeforeMount(() => {
   userStore.authUser();
-})
-  //
+});
+//
 </script>
 
 <style lang="scss">
