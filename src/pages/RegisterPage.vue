@@ -19,6 +19,8 @@
           prepend-inner-icon="mdi-email-outline"
           variant="outlined"
           :disabled="loading"
+          :color="!emailValid && 'error'"
+          :base-color="!emailValid && 'error'"
         ></v-text-field>
 
         <label
@@ -38,6 +40,8 @@
           prepend-inner-icon="mdi-lock-outline"
           variant="outlined"
           :disabled="loading"
+          :color="!hasPassword && 'error'"
+          :base-color="!hasPassword && 'error'"
           @click:append-inner="visible = !visible"
         ></v-text-field>
 
@@ -102,7 +106,7 @@
           size="large"
           variant="tonal"
           block
-          :disabled="loading"
+          :disabled="loading || !emailValid || !hasPassword"
           @click="register"
         >
           Зарегистрироваться
@@ -139,6 +143,13 @@ const firstName = ref("");
 const lastName = ref("");
 const gender = ref(false);
 const phone = ref("");
+
+const emailValid = computed(() => {
+  const pattern = /^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/;
+  return pattern.test(login.value);
+})
+
+const hasPassword = computed(() => password.value.length >= 2);
 
 const register = async () => {
   loading.value = true;

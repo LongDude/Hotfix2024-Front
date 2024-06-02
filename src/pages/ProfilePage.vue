@@ -27,6 +27,8 @@
           variant="outlined"
           :disabled="loading"
           @click:append-inner="visible = !visible"
+          :color="!hasPassword && 'error'"
+          :base-color="!hasPassword && 'error'"
         ></v-text-field>
 
         <label
@@ -147,9 +149,11 @@ const lastName = ref(user.value.lastName);
 const gender = ref(!!user.value.gender);
 const phone = ref(user.value.phone);
 
+const hasPassword = computed(() => password.value.length >= 2);
+
 const canChanged = computed(
   () =>
-    !!password.value &&
+    hasPassword.value &&
     (user.value.login !== login.value ||
       user.value.firstName !== firstName.value ||
       user.value.lastName !== lastName.value ||

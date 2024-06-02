@@ -18,7 +18,10 @@ export const useUserStore = defineStore("user", () => {
     let foundedUser = null;
 
     if (users_email && users_password) {
-      const { token } = await UserApi.login(users_email, users_password);
+      const response = await UserApi.login(users_email, users_password);
+      const token = response?.token;
+      if (!token) return;
+
       await sessionStorage.setItem(TOKEN_STORAGE_NAME, token);
       foundedUser = await UserApi.getUser();
     } else {
