@@ -58,6 +58,8 @@
 
       <flights-table v-if="flights" :items="[flights]" />
     </template>
+
+    <recommended-places />
   </section>
 </template>
 
@@ -67,6 +69,7 @@ import { useRouter } from "vue-router";
 import { FlightApi } from "@/api/FlightApi";
 import ChartVue from "@/pages/home/ChartVue.vue";
 import FlightsTable from "./home/FlightsTable.vue";
+import RecommendedPlaces from "./home/RecommendedPlaces.vue";
 
 const router = useRouter();
 const loading = ref(false);
