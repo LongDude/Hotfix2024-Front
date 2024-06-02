@@ -50,6 +50,7 @@ const props = defineProps({
 });
 
 const updateRouter = (from, to, date, flclass) => {
+  flights.value = null;
   const query = {
       ...from && {from: from},
       ...to && {to: to},
@@ -90,6 +91,7 @@ const canApply = computed(
 );
 
 const apply = async () => {
+  flights.value = null;
   const obj = {
     from: props.from,
     to: props.to,
